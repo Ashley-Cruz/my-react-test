@@ -1,85 +1,151 @@
 .todo-list {
+  &__header {
+    display: flex;
+    align-items: initial;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
 
-    &__header {
-        display: flex;
-        align-items: initial;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        width: 100%;
+    input {
+      height: 28px;
+      width: 260px;
+      border: none;
+      border-radius: 6px;
+      padding: 0 8px;
+      outline: none;
+      margin-right: 20px;
+      max-width: 100%;
+    }
 
-        input {
-            height: 28px;
-            width: 260px;
-            border: none;
-            border-radius: 6px;
-            padding: 0 8px;
-            outline: none;
-            margin-right: 20px;
-            max-width: 100%;
+    button {
+      width: 120px;
+      height: 28px;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .add {
+      background-color: #00d061;
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: #20232a;
+        color: #404550;
+      }
+    }
+
+    .refresh {
+      background-color: #ae91e8;
+    }
+  }
+
+  &__body {
+    background-color: #20232a;
+    border-radius: 6px;
+    padding: 20px;
+
+    table {
+      width: 100%;
+
+      th {
+        height: 30px;
+        border-bottom: 1px solid #282c34;
+        border-right: 1px solid #282c34;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      thead {
+        font-size: 16px;
+        color: white;
+      }
+
+      tbody {
+        font-size: 14px;
+        font-weight: normal;
+        color: #9ca2b1;
+
+        th {
+          &:nth-child(3) {
+            text-align: left;
+          }
+
+          &:nth-child(4) {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+               p {
+                width: 80px;
+                padding: 2px 0;
+                border-radius: 6px;
+               }
+          }
         }
 
-        button {
-            width: 120px;
-            height: 28px;
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        .add {
-            background-color: #00D061;
-
-            &:disabled {
-                cursor: not-allowed;
-                background-color: #20232a;
-                color: #404550;
+        tr {
+            &:last-child {
+                th {
+                    border-bottom: none;
+                }
             }
         }
 
-        .refresh {
-            background-color: #AE91E8;
+        .completed {
+            background-color:#00d06131;
+            color: #00d061;
+            
         }
+
+        .not-completed {
+            color: red;
+            background-color: rgba(255, 0, 0, 0.199);
+        }
+      }
     }
+  }
 }
 
 @media (max-width: 600px) {
-    .todo-list {
-        &__header {
-            .input-container {
-                display: flex;
-                flex-direction: column;
+  .todo-list {
+    &__header {
+      .input-container {
+        display: flex;
+        flex-direction: column;
 
-                .add {
-                    margin-top: 20px;
-                }
-            }
+        .add {
+          margin-top: 20px;
         }
+      }
     }
+  }
 }
 
 @media (max-width: 450px) {
-    .todo-list {
-        &__header {
-            flex-direction: column-reverse;
-            .input-container {
-                display: flex;
-                flex-direction: column;
-                
-                input {
-                    width: 100%;
-                }
+  .todo-list {
+    &__header {
+      flex-direction: column-reverse;
+      .input-container {
+        display: flex;
+        flex-direction: column;
 
-                .add {
-                    margin-top: 20px;
-                    width: 100%;
-                }
-            }
-
-            .refresh {
-                align-self: flex-end;
-                margin-bottom: 20px;
-            }
+        input {
+          width: 100%;
         }
+
+        .add {
+          margin-top: 20px;
+          width: 100%;
+        }
+      }
+
+      .refresh {
+        align-self: flex-end;
+        margin-bottom: 20px;
+      }
     }
+  }
 }

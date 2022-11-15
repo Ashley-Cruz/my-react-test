@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import classnames from "classnames";
 import { Pagination } from "../../components";
 import request from "../../utils/api/request";
 import "./styles.scss";
@@ -125,7 +126,7 @@ const TodoList = () => {
         totalCount={totalCount}
         currentPage={currentPage}
       />
-      <div>
+      <div className="todo-list__body">
         <table>
           <thead>
             <tr>
@@ -136,14 +137,17 @@ const TodoList = () => {
             </tr>
           </thead>
           <tbody>
-            {alterList?.map((item, i) => (
-              <tr key={i}>
-                <th>{item.id}</th>
-                <th>{item.userId}</th>
-                <th>{item.title}</th>
-                <th>{item.completed ? "True" : "False"}</th>
-              </tr>
-            ))}
+            {alterList?.map((item, i) => {
+              const status = classnames({'completed': item.completed, 'not-completed': !item.completed});
+              return (
+                <tr key={i}>
+                  <th>{item.id}</th>
+                  <th>{item.userId}</th>
+                  <th>{item.title}</th>
+                  <th><p className={status}>{item.completed ? "True" : "False"}</p></th>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
