@@ -127,7 +127,7 @@ const TodoList = () => {
         currentPage={currentPage}
       />
       <div className="todo-list__body">
-        <table>
+        <table cellspacing="0">
           <thead>
             <tr>
               <th>#</th>
