@@ -172,7 +172,7 @@ const TodoList = () => {
                 'input-error': !!formErrors.description
               })}
             />
-            {formErrors.description && <p>This field is required</p>}
+            {formErrors.description && <p>Don't leave me empty :(</p>}
           </div>
           <button onClick={onAddItem} className="add" disabled={!description}>
             Add
