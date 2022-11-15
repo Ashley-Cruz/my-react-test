@@ -8,9 +8,36 @@
         flex-wrap: wrap;
         margin: 0 5px;
 
+        .bttn {
+            width: 50px;
+        }
+        .disabled {
+            background-color: #20232a;
+            color: #404550;
+            cursor: not-allowed;
+        }
+
+        .arrow {
+            border: solid;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+        .right {
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+          }
+
+
         li {
             min-width: 40px;
-            height: 20px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
