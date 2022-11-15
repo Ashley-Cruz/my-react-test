@@ -57,9 +57,7 @@ const TodoList = () => {
     }));
   };
 
-  const onAddItem = (e) => {
-    e.preventDefault();
-
+  const onAddItem = () => {
     const newItem = {
       completed: false,
       id: list?.length + 1,
@@ -76,6 +74,13 @@ const TodoList = () => {
       ...values,
       totalCount: list.length + 1,
     }));
+
+    if (currentPage === Math.ceil(totalCount/pageSize) && alterList.length < 10) {
+        setAlterList(values => ([
+            ...values,
+            newItem
+        ]));
+    }
   };
 
   const onRefresh = () => {
