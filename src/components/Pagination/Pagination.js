@@ -8,12 +8,12 @@ const Pagination = (props) => {
   const onPrevious = () => {
     if (currentPage === 1) return;
     onPageChange(currentPage - 1);
-  }
+  };
 
   const onNext = () => {
     if (currentPage === lastPage) return;
     onPageChange(currentPage + 1);
-  }
+  };
 
   const paginationRange = Array.from(
     { length: Math.ceil(totalCount / pageSize) },
@@ -21,11 +21,14 @@ const Pagination = (props) => {
   );
 
   const lastPage = paginationRange.length;
-  
+
   return (
     <div className="pagination">
       <ul className="pagination__container">
-        <li className={classnames('bttn',{disabled: currentPage === 1})} onClick={onPrevious}>
+        <li
+          className={classnames("bttn", { disabled: currentPage === 1 })}
+          onClick={onPrevious}
+        >
           <span className="arrow left"></span>
         </li>
         {paginationRange.map((num, i) => {
@@ -38,8 +41,11 @@ const Pagination = (props) => {
             </li>
           );
         })}
-        <li className={classnames('bttn',{disabled: currentPage === lastPage})} onClick={onNext}>
-        <span className="arrow right"></span>
+        <li
+          className={classnames("bttn", { disabled: currentPage === lastPage })}
+          onClick={onNext}
+        >
+          <span className="arrow right"></span>
         </li>
       </ul>
     </div>
