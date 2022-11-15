@@ -1,0 +1,31 @@
+.pagination {
+    &__container {
+        width: 100%;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        li {
+            min-width: 40px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: hsl(222, 14%, 10%);
+            border-radius: 4px;
+            color: white;
+            margin: 5px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: #61dafb;
+            color: black;
+            font-weight: bold;
+        }
+    }
+}
