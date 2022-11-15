@@ -12,6 +12,9 @@ const TodoList = () => {
         pageSize: 10,
         totalCount: null
     });
+    const [formValues, setFormValues] = useState({
+        description: ''
+    });
 
     const { currentPage, pageSize, totalCount } = pagination;
 
@@ -46,6 +49,38 @@ const TodoList = () => {
         }));
     }
 
+    const onChange = ({target}) => {
+        setFormValues(values => ({
+            ...values,
+            [target.name]: target.value
+        }))
+    }
+
+    const onAddItem = (e) => {
+        e.preventDefault();
+
+        const newItem = {
+            completed: false,
+            id: list?.length + 1,
+            title: formValues.description,
+            userId: 11
+        }
+        setList(values => ([
+            ...values,
+            newItem
+        ]));
+        setFormValues(values => ({
+            ...values,
+            description: ''
+        }))
+        setPagination(values => ({
+            ...values,
+            totalCount: list.length + 1
+        }));
+
+        
+    }
+
     if (loading) {
         return (
             <div>
@@ -64,6 +99,12 @@ const TodoList = () => {
     
   return (
     <div>
+        <div>
+            <div>
+                <input type="text" name="description" placeholder="Your awesome description" values={formValues.description}  onChange={onChange} />
+                <button onClick={onAddItem}>Add</button>
+            </div>
+        </div>
         <Pagination 
             onPageChange={onPageChange}
             pageSize={pageSize}
