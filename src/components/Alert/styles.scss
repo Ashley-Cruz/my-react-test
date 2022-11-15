@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+.error {
+    background-color: rgba(255, 0, 0, 0.199);
+    p {
+        color: red;
+    }
+}
+
+.success {
+    background-color: #00d06131;
+    p {
+        color: #00d061;
+    }
+}
