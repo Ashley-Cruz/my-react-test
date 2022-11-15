@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pagination } from "../../components";
 import request from "../../utils/api/request";
+import "./styles.scss";
 
 const TodoList = () => {
   const [list, setList] = useState([]);
@@ -104,9 +105,9 @@ const TodoList = () => {
   }
 
   return (
-    <div>
-      <div>
-        <div>
+    <div className="todo-list">
+      <div className="todo-list__header">
+        <div className="input-container">
           <input
             type="text"
             name="description"
@@ -114,9 +115,9 @@ const TodoList = () => {
             value={description}
             onChange={onChange}
           />
-          <button onClick={onAddItem}>Add</button>
+          <button onClick={onAddItem} className="add" disabled={!description}>Add</button>
         </div>
-        <button onClick={onRefresh}>Refresh</button>
+        <button onClick={onRefresh} className="refresh">Refresh</button>
       </div>
       <Pagination
         onPageChange={onPageChange}
