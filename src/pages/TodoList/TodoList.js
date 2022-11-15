@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
-import { Pagination } from "../../components";
+import { Pagination, Alert } from "../../components";
 import request from "../../utils/api/request";
 import "./styles.scss";
 
@@ -17,9 +17,16 @@ const TodoList = () => {
   const [formValues, setFormValues] = useState({
     description: "",
   });
+  const [alert, setAlert] = useState({
+    title: "",
+    msg: "",
+    type: "",
+    showAlert: false,
+  });
 
   const { currentPage, pageSize, totalCount } = pagination;
   const { description } = formValues;
+  const { title, msg, type, showAlert } = alert;
 
   useEffect(() => {
     fetchData();
@@ -37,7 +44,14 @@ const TodoList = () => {
       }));
       setLoading(false);
     } catch (error) {
-      setError(error.message);
+      setError(true);
+      setAlert((values) => ({
+        ...values,
+        title: "Error!",
+        msg: error.message + '.',
+        type: "error",
+        showAlert: true,
+      }));
       setLoading(false);
     }
   };
@@ -77,11 +91,26 @@ const TodoList = () => {
       totalCount: list.length + 1,
     }));
 
-    if (currentPage === Math.ceil(totalCount/pageSize) && alterList.length < 10) {
-        setAlterList(values => ([
-            ...values,
-            newItem
-        ]));
+    setAlert((values) => ({
+      ...values,
+      title: "Success!",
+      msg: "New item added with the description: " + description + ".",
+      type: "success",
+      showAlert: true,
+    }));
+
+    setTimeout(function () {
+      setAlert((values) => ({
+        ...values,
+        showAlert: false,
+      }));
+    }, 3000);
+
+    if (
+      currentPage === Math.ceil(totalCount / pageSize) &&
+      alterList.length < 10
+    ) {
+      setAlterList((values) => [...values, newItem]);
     }
   };
 
@@ -100,13 +129,14 @@ const TodoList = () => {
   if (error) {
     return (
       <div>
-        <p>{error}</p>
+         {showAlert && <Alert title={title} msg={msg} type={type} />}
       </div>
     );
   }
 
   return (
     <div className="todo-list">
+      {showAlert && <Alert title={title} msg={msg} type={type} />}
       <div className="todo-list__header">
         <div className="input-container">
           <input
@@ -116,9 +146,13 @@ const TodoList = () => {
             value={description}
             onChange={onChange}
           />
-          <button onClick={onAddItem} className="add" disabled={!description}>Add</button>
+          <button onClick={onAddItem} className="add" disabled={!description}>
+            Add
+          </button>
         </div>
-        <button onClick={onRefresh} className="refresh">Refresh</button>
+        <button onClick={onRefresh} className="refresh">
+          Refresh
+        </button>
       </div>
       <Pagination
         onPageChange={onPageChange}
@@ -138,15 +172,22 @@ const TodoList = () => {
           </thead>
           <tbody>
             {alterList?.map((item, i) => {
-              const status = classnames({'completed': item.completed, 'not-completed': !item.completed});
+              const status = classnames({
+                completed: item.completed,
+                "not-completed": !item.completed,
+              });
               return (
                 <tr key={i}>
                   <th>{item.id}</th>
                   <th>{item.userId}</th>
                   <th>{item.title}</th>
-                  <th><p className={status}>{item.completed ? "True" : "False"}</p></th>
+                  <th>
+                    <p className={status}>
+                      {item.completed ? "True" : "False"}
+                    </p>
+                  </th>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
