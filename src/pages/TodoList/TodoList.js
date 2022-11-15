@@ -17,6 +17,9 @@ const TodoList = () => {
   const [formValues, setFormValues] = useState({
     description: "",
   });
+  const [formErrors, setFormErrors] = useState({
+    description: null
+  });
   const [alert, setAlert] = useState({
     title: "",
     msg: "",
@@ -66,11 +69,13 @@ const TodoList = () => {
     }));
   };
 
-  const onChange = ({ target }) => {
+  const onChange = (e) => {
     setFormValues((values) => ({
       ...values,
-      [target.name]: target.value,
+      [e.target.name]: e.target.value,
     }));
+
+    validateForm(e);
   };
 
   const onAddItem = () => {
@@ -114,6 +119,20 @@ const TodoList = () => {
     }
   };
 
+  const validateForm = ({target}) => {
+    if (!target.value) {
+      setFormErrors((values) => ({
+        ...values,
+        [target.name]: 'true',
+      }))
+    } else {
+      setFormErrors((values) => ({
+        ...values,
+        [target.name]: null,
+      }))
+    }
+  }
+
   const onRefresh = () => {
     window.location.reload(false);
   };
@@ -134,18 +153,27 @@ const TodoList = () => {
     );
   }
 
+  const placeholder = !!formErrors.description ? "" : "Your awesome description";
+
   return (
     <div className="todo-list">
       {showAlert && <Alert title={title} msg={msg} type={type} />}
       <div className="todo-list__header">
-        <div className="input-container">
-          <input
-            type="text"
-            name="description"
-            placeholder="Your awesome description"
-            value={description}
-            onChange={onChange}
-          />
+        <div className="add-item">
+          <div className="input-container">
+            <input
+              type="text"
+              name="description"
+              placeholder={placeholder}
+              value={description}
+              onChange={onChange}
+              onBlur={validateForm}
+              className={classnames({
+                'input-error': !!formErrors.description
+              })}
+            />
+            {formErrors.description && <p>This field is required</p>}
+          </div>
           <button onClick={onAddItem} className="add" disabled={!description}>
             Add
           </button>

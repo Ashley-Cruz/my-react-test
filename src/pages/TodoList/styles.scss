@@ -6,6 +6,25 @@
     margin-bottom: 20px;
     width: 100%;
 
+    .add-item {
+        display: flex;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        p {
+            color: red;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+    }
+
+    .input-error {
+        background-color: rgba(255, 0, 0, 0.199);
+        border: 1px solid red;
+    }
+
     input {
       height: 28px;
       width: 260px;
@@ -112,7 +131,7 @@
 @media (max-width: 600px) {
   .todo-list {
     &__header {
-      .input-container {
+      .add-item {
         display: flex;
         flex-direction: column;
 
@@ -128,7 +147,7 @@
   .todo-list {
     &__header {
       flex-direction: column-reverse;
-      .input-container {
+      .add-item {
         display: flex;
         flex-direction: column;
 
